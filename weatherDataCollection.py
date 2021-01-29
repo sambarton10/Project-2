@@ -43,32 +43,37 @@ testCoords = ['32.536090909,-86.64484848']
 
 testDates = ['2020-07-19', '2021-01-20']
 
-
-for date in dates[0:5]:
-
-    baseURL = 'http://api.worldweatheronline.com/premium/v1/past-weather.ashx'
-    format = '&format=json'
-    queryURL = baseURL + weather_api_key + format + "&date=" + date
-
-    #print(queryURL)
     
-    test = requests.get(queryURL)
-    print("next date!!")
-  
-    for coord in coords:
-        rr = requests.get(queryURL + "&q=" + coord)
-        my_dict = rr.json()
-        y = js.dumps(my_dict)
-        jsonDict = js.loads(y)
-        x = (jsonDict['data']['weather'][0]['avgtempF'])
-        paths = [coord, date, x]
-        responses.append(paths)
-        print(paths)
-        print("next coord!")
+for date in dates[305:306]:
+       
+            baseURL = 'http://api.worldweatheronline.com/premium/v1/past-weather.ashx'
+            format = '&format=json'
+            queryURL = baseURL + weather_api_key + format + "&date=" + date
+        
+            #print(queryURL)
+            
+            test = requests.get(queryURL)
+            print("next date!!")
+          
+            for coord in coords:
+                try:
+                    rr = requests.get(queryURL + "&q=" + coord)
+                    my_dict = rr.json()
+                    y = js.dumps(my_dict)
+                    jsonDict = js.loads(y)
+                    x = (jsonDict['data']['weather'][0]['avgtempF'])
+                    paths = [coord, date, x]
+                    responses.append(paths)
+                    print(paths)
+                    
+            
+                except Exception as e: 
+                    print(e)
+            
 
 print(responses)
 
 responsesDF = pd.DataFrame(responses)
-responsesDF.to_csv('./dataframe.csv', index=False, header=True)
+responsesDF.to_csv('./decemberDF31.csv', index=False, header=True)
 print(responsesDF)
 #print(responses)
