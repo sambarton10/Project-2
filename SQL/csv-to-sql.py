@@ -11,10 +11,10 @@ from config import password
 
 engine = create_engine("postgresql://postgres:" + password + "@localhost/weatherCOVID")
 
-longlatDF = pandas.read_csv("./../raw-data/county_centers.csv", header = 0)
+longlatDF = pandas.read_csv("./../raw-data/RoundedCountyCenters.csv", header = 0)
 stateDF = pandas.read_csv("./../raw-data/us-states.csv", header = 0)
 countyDF = pandas.read_csv("../raw-data/us-counties.csv", header = 0)
-weatherDF = pandas.read_csv("../combinedDF.csv", header = 0)
+weatherDF = pandas.read_csv("../RoundedCombinedDF.csv", header = 0)
 
 adjustedLonglat = longlatDF.drop(['clon00', 'clat00', 'pclon00', 'pclat00', 'pclon10', 'pclat10'], axis = 1)
 
@@ -36,6 +36,6 @@ countyDF.to_sql("county", con = engine, if_exists = "replace")
 engine.execute("SELECT * FROM county").fetchall()
 print("county table updated!")
 
-weatherDF.to_sql("weather", con = engine, if_exists = "replace", dtype = {"Latitude": Numeric, "Longitude": Numeric})
+weatherDF.to_sql("weather", con = engine, if_exists = "replace", dtype = {"latitude": Numeric, "longitude": Numeric})
 engine.execute("SELECT * FROM weather").fetchall()
 print("weather table updated!")
