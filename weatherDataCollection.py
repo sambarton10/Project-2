@@ -6,24 +6,14 @@ import json as js
 #Create An Empty List To Add Temperature Data To
 responses = []
 
-#Read Zipcode Data Into Pandas Dataframe
-zipData = pd.read_csv("raw-data/county_centers.csv")
-#Read Dates Data Into Pandas Dataframe
-
-dateData = pd.read_csv("raw-data/dates.csv")
-
-#Convert Date Column To A List With Dates
-
-dates = dateData['date'].tolist()
-
-
-LONclon10 = zipData['pclon10'].tolist()
-LATclat10 = zipData['pclat10'].tolist()
+df = pd.read_csv('/Users/sambarton/Project-2/draftJoin.csv')
+lon = df['longitude'].drop_duplicates()
+lat = df['latitude'].drop_duplicates()
 
 
 dataframe = pd.DataFrame()
-dataframe['Lon'] = LONclon10
-dataframe['Lat'] = LATclat10
+dataframe['Lon'] = lon
+dataframe['Lat'] = lat
 
 dataframe['combined']=dataframe['Lat'].astype(str)+','+dataframe['Lon'].astype(str)
 
@@ -37,6 +27,14 @@ df = dataframe.dropna()
 #print(dataframe)
 
 coords=df['combined'].tolist()
+
+dateData = pd.read_csv("raw-data/dates.csv")
+
+#Convert Date Column To A List With Dates
+
+dates = dateData['date'].tolist()
+
+
 #print(coords)
 #print(coords)
 testCoords = ['32.536090909,-86.64484848']
@@ -44,7 +42,7 @@ testCoords = ['32.536090909,-86.64484848']
 testDates = ['2020-07-19', '2021-01-20']
 
     
-for date in dates[305:306]:
+for date in dates[275:306]:
        
             baseURL = 'http://api.worldweatheronline.com/premium/v1/past-weather.ashx'
             format = '&format=json'
@@ -74,6 +72,6 @@ for date in dates[305:306]:
 print(responses)
 
 responsesDF = pd.DataFrame(responses)
-responsesDF.to_csv('./decemberDF31.csv', index=False, header=True)
+responsesDF.to_csv('./weatherData.csv', index=False, header=True)
 print(responsesDF)
 #print(responses)
