@@ -14,7 +14,7 @@ engine = create_engine("postgresql://postgres:" + password + "@localhost/weather
 longlatDF = pandas.read_csv("./../raw-data/county_centers.csv", header = 0)
 stateDF = pandas.read_csv("./../raw-data/us-states.csv", header = 0)
 countyDF = pandas.read_csv("../raw-data/us-counties.csv", header = 0)
-weatherDF = pandas.read_csv("../CleanedWeatherData.csv", header = 0)
+weatherDF = pandas.read_csv("../CleanedWeatherData1.csv", header = 0)
 
 adjustedLonglat = longlatDF.drop(['clon00', 'clat00', 'pclon00', 'pclat00', 'pclon10', 'pclat10'], axis = 1)
 
