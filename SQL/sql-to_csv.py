@@ -11,8 +11,9 @@ from config import password
 
 engine = create_engine("postgresql://postgres:" + password + "@localhost/weatherCOVID")
 
-data = engine.execute("SELECT weather.date, county, state, fips, clon10, longitude, latitude, clat10, cases, deaths, tempf FROM county LEFT JOIN lat_long USING (fips) LEFT JOIN weather ON lat_long.clon10 = weather.longitude WHERE tempf IS NOT NULL ORDER BY state;")
+data = engine.execute("SELECT date, state, county, new_fips, tempf, cases, deaths FROM covid_weather ORDER BY date, state, county;")
 
 queryDF = pandas.DataFrame(data)
+print(queryDF)
 
-queryDF.to_csv("testJoin.csv")
+queryDF.to_csv("FINAL_data.csv")

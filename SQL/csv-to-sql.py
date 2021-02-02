@@ -5,17 +5,17 @@ Created on Fri Jan 22 17:12:14 2021
 @author: Mason
 """
 
-from sqlalchemy import create_engine, Numeric
+from sqlalchemy import create_engine, Numeric, Text
 import pandas
 from config import password
 
 engine = create_engine("postgresql://postgres:" + password + "@localhost/weatherCOVID")
 
-combinedDF = pandas.read_csv("../test.csv", header = 0)
+combinedDF = pandas.read_csv("../AdjustedFinal.csv", header = 0)
 
 print(combinedDF)
 
-combinedDF.to_sql("covid_weather", con = engine, if_exists = "replace", dtype = {"latitude": Numeric, "longitude": Numeric})
+combinedDF.to_sql("covid_weather", con = engine, if_exists = "replace", dtype = {"latitude": Numeric, "longitude": Numeric, "new_fips": Text})
 engine.execute("SELECT * FROM covid_weather").fetchall()
 print("covid_weather table updated!")
 
