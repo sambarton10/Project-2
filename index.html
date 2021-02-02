@@ -27,7 +27,14 @@
             </ul>
         </div>
           <button id="filter-btn" type="button" class="btn btn-default">Filter Table</button>
+        
        </form>
+       <div class="row">
+        <div class="col-xs-12  col-md-9">
+          <div id="Map">
+          </div>
+        </div>
+      </div>
   </div>
 
 
@@ -132,7 +139,7 @@
           .projection(null);
 
       // Generating map dimensions
-      var svg = d3.select("body").append("svg")
+      var svg = d3.select("#Map").append("svg")
           .attr("width", width)
           .attr("height", height);
 
