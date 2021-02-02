@@ -41,7 +41,7 @@
     ///////////////////////// LOAD IN COVID DATA /////////////////////////
 
     // Load in COVID data
-    d3.csv("covid_data_og.csv", function(covid) {
+    d3.csv("FinalCombinedData.csv", function(covid) {
 
 
      ///////////////////////// RUN FILTER & GRAB COVDID, LAT/LON, & TEMP DATA /////////////////////////
@@ -66,31 +66,31 @@
           var covidCases = {};
           covid.forEach(function(d) {
             d.cases = +d.cases
-            d.FIPStxt = +d.FIPStxt
-            covidCases[d.FIPStxt] = d.cases;
+            d.fips = +d.fips
+            covidCases[d.fips] = d.cases;
           })    
 
           // Latitutde information indexed to FIPS code
           var lat = {};
           covid.forEach(function(d) {
-            d.lat = +d.lat
-            d.FIPStxt = +d.FIPStxt
-            lat[d.FIPStxt] = d.lat
+            d.lat = +d.latitude
+            d.fips = +d.fips
+            lat[d.fips] = d.lat
           }) 
 
           // Longitude information indexed to FIPS code
           var lon = {};
           covid.forEach(function(d) {
-            d.lon = +d.lon
-            d.FIPStxt = +d.FIPStxt
-            lon[d.FIPStxt] = d.lon
+            d.lon = +d.longitude
+            d.fips = +d.fips
+            lon[d.fips] = d.lon
           })
 
           var temp = {};
           covid.forEach(function(d) {
-            d.temp = +d.temp
-            d.FIPStxt = +d.FIPStxt
-            temp[d.FIPStxt] = d.temp
+            d.temp = +d.tempf
+            d.fips = +d.fips
+            temp[d.fips] = d.temp
           })
 
 
@@ -110,7 +110,7 @@
           // Function to populate county color scales
           var fill = d3.scale.log()
             .domain([10, 500])
-            .range(["steelblue", "lightblue"]);
+            .range(["lightblue", "darkblue"]);
 
           
           // Load in GEOJSON data via json file
@@ -143,7 +143,7 @@
               .enter().append("path")
               .attr("d", path)
               .style("fill", function(d) { 
-                return fill(temp[d.id]); 
+                return fill( temp[d.id] ); 
               });
 
             // append bubbles over county center & size per covid cases
@@ -155,7 +155,7 @@
               .data(topojson.feature(us, us.objects.counties).features)
               .enter().append("circle")
               .attr("class", "bubbles")
-              .attr("r", function(d) { return radius(covidCases[d.id]*1000); })
+              .attr("r", function(d) { return radius(covidCases[d.id] * 15 ); })
               .attr("fill", "red")
               .attr("opacity", "0.3")
               .attr("cx", function(d) { 
