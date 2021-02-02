@@ -4,9 +4,17 @@
 }
 
 .orange {
-  stroke: orange;
+  stroke: red;
 }
 
 .green {
-  stroke: green;
+  stroke: steelblue;
 }
+
+path {
+  
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+

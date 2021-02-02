@@ -1,6 +1,6 @@
 // Step 1: Set up our chart
 //= ================================
-var svgWidth = 960;
+var svgWidth = 800;
 var svgHeight = 500;
 
 var margin = {
@@ -18,7 +18,7 @@ var height = svgHeight - margin.top - margin.bottom;
 // and shift the latter by left and top margins.
 // =================================
 var svg = d3
-  .select("body")
+  .select("#usMap")
   .append("svg")
   .attr("width", svgWidth)
   .attr("height", svgHeight);
@@ -29,7 +29,7 @@ var chartGroup = svg.append("g")
 // Step 3:
 // Import data from the donuts.csv file
 // =================================
-d3.csv("lineData.csv").then(function(combinedData) {
+d3.csv("./lineData.csv").then(function(combinedData) {
   // Step 4: Parse the data
   // Format the data and convert to numerical and date values
   // =================================
